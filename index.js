@@ -1,7 +1,14 @@
-
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+require('dotenv').config();
+const PersonMod = require('./models/persons');
+
+
+
+
+
+
 
 const app = express();
 
@@ -11,7 +18,11 @@ app.use(cors());
 app.use(express.json());   
 app.use(express.static('build'));                                                                        //middleware
 app.use(morgan(':method :url :status :res[content-length] :body - :response-time ms'))
-                                        
+
+
+
+
+
 
 let persons = [
     { 
@@ -47,7 +58,12 @@ app.get('/',(req,res) =>{
     //morgan(':method :url :status :res[content-length] - :response-time ms');
     res.send(`The server is runnning on ${PORT}`) });
 
-app.get('/api/persons',(req,res) => res.json(persons))
+app.get('/api/persons',(req,res) => {
+  PersonMod.find({}).then(data => res.json(data))
+}
+  )
+
+
 
 app.get('/info',(req,res) =>  { 
     
@@ -88,15 +104,17 @@ app.post('/api/persons',(req,res) => {
 
     }
 
-    if(persons.find( person => person.name === newPerson.name )){
+    PersonMod.find({name:newPerson.name}).then( value =>  {
         return res.status(400).json({
             "error":"name must be unique"
         })
-    }
 
-    newPerson["id"] = Math.floor((Math.random() * 9876543) + 12345);
-    persons.push(newPerson);
-    res.send(newPerson);
+    })
+
+
+    // write code here to save person data in the database
+
+    
 
 })
 
