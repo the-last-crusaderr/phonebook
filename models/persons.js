@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 
 /*
@@ -6,7 +7,7 @@ if(process.argv.length < 3){
     console.log('Please,provide a password as an argument.')
     process.exit(1);
 }
-
+121112
 const pwd = process.argv[2];
 const newName = process.argv[3];
 const newNum = process.argv[4];
@@ -33,9 +34,11 @@ mongoose.connect(url)
 
 const personSchema = new mongoose.Schema({
     id:Number,
-    name:String,
-    number:String
+    name:{type:String,required:true,unique:true,minLength:3},
+    number:{type:String,required:true,unique:true,minLength:8}
 })
+
+personSchema.plugin(uniqueValidator);
 
 personSchema.set('toJSON', {
     transform: (document, returnedObject) => {
@@ -72,7 +75,7 @@ else{
         console.log('note saved');
         mongoose.connection.close();
     })
-
+121112
 
 }
 

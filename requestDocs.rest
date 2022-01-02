@@ -1,26 +1,54 @@
-GET http://localhost:3001/api/persons
+GET http://localhost:3002/api/persons
 
 ###
 
-GET http://localhost:3001/api/persons/5
+GET http://localhost:3002/api/persons/105028
 
 
 ###
 
-GET http://localhost:3001/info
+GET http://localhost:3002/api/persons/5c4icc
+
 
 ###
 
-DELETE http://localhost:3001/api/persons/6467189
+GET http://localhost:3002/info
 
 ###
 
-POST http://localhost:3001/api/persons 
+DELETE http://localhost:3002/api/persons/294873
+
+###
+
+POST http://localhost:3002/api/persons 
 Content-Type: application/json
 
 {
-    "name":"Last Crusaderr",
-    "number":90897776729
+    "name":"Sumit Gupta",
+    "number":"0877789268"
 }
+
+
+### 
+
+POST http://localhost:3002/api/persons 
+Content-Type: application/json
+
+{
+    "name":"Le",
+    "number":"53546675757"
+}
+
+
+###
+put http://localhost:3002/api/persons/24290
+Content-Type: application/json
+
+{
+    "name":"Chris Green",
+    "number":"77947294299"
+}
+
+
 
 
