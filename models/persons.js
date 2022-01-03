@@ -14,18 +14,19 @@ const newNum = process.argv[4];
 
 */
 
+/* eslint-disable */
 const url = process.env.MONGODB_URL;
+/* eslint-enable */
 
-
-console.log('connecting to', url)
+console.log('connecting to', url);
 
 mongoose.connect(url)
   .then(result => {
-    console.log('connected to MongoDB')
+    console.log('connected to MongoDB');
   })
   .catch((error) => {
-    console.log('error connecting to MongoDB:', error.message)
-  })
+    console.log('error connecting to MongoDB:', error.message);
+  });
 
 
 
@@ -33,19 +34,19 @@ mongoose.connect(url)
 
 
 const personSchema = new mongoose.Schema({
-    id:Number,
-    name:{type:String,required:true,unique:true,minLength:3},
-    number:{type:String,required:true,unique:true,minLength:8}
-})
+  id:Number,
+  name:{type:String,required:true,unique:true,minLength:3},
+  number:{type:String,required:true,unique:true,minLength:8}
+});
 
 personSchema.plugin(uniqueValidator);
 
 personSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-      delete returnedObject._id
-      delete returnedObject.__v
-    }
-  })
+  transform: (document, returnedObject) => {
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  }
+});
 
 
 const PersonModel = new mongoose.model('Person',personSchema);
